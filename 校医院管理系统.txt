@@ -1,0 +1,209 @@
+1.eclipse    IDE
+   mysql   数据库
+   maven   构建框架
+   springboot
+	spring     容器
+	spring mvc   
+	mybatis  对象关系映射  java对象与数据库表
+tomcat
+ layui 框架
+2.web应用程序
+	请求接收，业务处理，结果回应
+  浏览器端：发出请求，接收回应，解析显示
+
+3.web服务
+	socket 套接字  ip+port
+	tomcat服务   应用容器
+
+4.项目结构
+	/xyyglxt/src/main/java    java包/代码
+	/xyyglxt/src/main/resources
+		/xyyglxt/src/main/resources/static    项目根路径  公开目录
+		/xyyglxt/src/main/resources/templates   模板页目录
+		/xyyglxt/src/main/resources/application.properties   应用配置文件
+	/xyyglxt/pom.xml   maven构建文件
+	静态资源   （静态页） 不需服务器参与改变的资源
+	动态资源     （动态页-不包含与前后分离）
+	
+5.地址
+	127.0.0.1 =  loaclhost
+	http://127.0.0.1/index.html
+	协议名://ip|域名|主机名[:端口号]/应用名/目标地址?参数名=参数值&参数名1=参数值2
+	请求：
+	1.url地址重定向   修改地址，<a href="url"> ,location.href="url",open("url")  GET类型
+	2.<form>表单标签   submit按钮提交     GET   POST类型			
+	3.AJAX异步请求        GET   POST类型
+		$.post(url,data.field,function(json){},"json");
+	类型：      
+	GET  :一切绑在地址上，速度快，类型限制，大小限制，安全限制
+	POST：地址独立，其他绑在请求体里
+6.操作代码
+	alt+/  
+7.mvc
+	controller  接收请求，指派业务，回应结果
+	model  业务模板，做事的人	
+	view  视图   无数据的模板样式页面
+	POJO对象  简单java对象     
+8.前后端分离
+	前端html  js 通过ajax通讯  发异步请求，将请求回应的数据对象，通过js，改动到页面
+9.网络错误号
+	100 状态
+	200  成功
+	300  不需发出
+	400   404发出去 目标错误
+	500   服务端代码异常
+10.控制器
+	@RestController      部件要放入容器，角色定义，返回数据！
+	@Controller   	部件要放入容器，角色定义，返回视图名称
+	@RequestMapping("/User")   定义地址映射
+	@Repository           部件要放入容器，仓库定义
+	@MapperScan("com.situ.mapper")   中途要根据接口动态代理生成类
+	@Select("select * from user")
+	@Autowired 从容器中根据类型获取部件
+	方法：
+		参数：1.基本类型    必须有参，类型对应
+		           2.引用类型   可无参，类型对应
+		           3.POJO对象   通过内部setters方法赋值
+		           4.系统类型   HttpServletRequest req
+	返回值： 自动转为JSON字符串
+11.mybatis
+	1.配置application.properties  数据库连接设置
+spring.datasource.driverClassName = com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/xyyglxt?
+useUnicode=true&characterEncoding=utf-8&allowPublicKeyRetrieval=true
+spring.datasource.username = root
+spring.datasource.password = root
+	2.创建接口  @Repository    定义部件
+			@Repository
+			public interface User_Mapper	
+	3.定义方法 @Select  定义方法
+			@Select("select * from user")
+			public List<User> select();
+		参数：	1.基本类型    必须有参，类型对应
+		           	2.引用类型   通过内部getters方法取值   #{name}填入   ${name}
+				#   sql语法判断   ，防sql注入
+				 $  sql拼接
+	4.@MapperScan  生成  加入容器
+			主类上@MapperScan("com.situ.mapper")   
+	5.@Autowired     获取
+			@Autowired
+			User_Mapper mapper;
+	6.使用
+			mapper.select();
+12.浏览器审查元素
+	1.控制台   js调试输出和错误显示
+	2.源代码   js逐行运行调试
+	3.元素      html结构和css调试
+	4.网络      请求状态查看
+13. 	 html   标签库
+	<a>  <img>  <div> <span> <form> <input> <select> <i> <ul><li> <table> <iframe>
+		<!DOCTYPE html>
+		<html>
+		<head></head>
+		<body></body>
+		</html>
+	css
+		1.style属性
+			<a herf="#" style="border: 1px red solid;color: #11aa33">我的标签</a>
+		2.style标签
+			<style type="text/css">
+				a{
+				border: 1px red solid;color: #11aa33}
+			</style>
+		选择器：  a{}   标签选择器
+			#name{}  id选择器
+			.cls{}         类选择器   多重设置			
+			[col=11] {}属性选择器
+			.s1,s2        组合选择器   或关系
+			.s1 s2        衍生选择器   s1类选择结果中 再选择内部的s2标签
+			.s1>s2       衍生选择器s1类选择结果中 再选择内部直属子的s2标签
+			伪类选择器
+		
+	java script
+		var tab=""；
+		function sss(a,b,c){   return  "a"   }
+		alert(text) ,  var isok=confirm（”dd“）, var txt=prompt(title)
+		1.BOM 浏览器对象模板
+			location.href=""
+			history.back()
+		2.DOM文档对象模板
+		<div onclick="changer()">我要点击</div>
+		function changer()
+		aaa.style.color="red";
+		3.js对象   json转换后
+			var a={};
+		·	a.aa=1;
+			a.bb=2;
+			alert(a.bb)
+		
+14.layui 
+	index 页面table
+		1.导入layui  js，css
+		2.创建layui table对象	
+			（1）初始化 LAY_Table(layid,elem,url,toolbar,cols)
+				var tab=new LAY_Table   内置3种事件的回调
+			（2）定义事件
+				tab.ontool=function(event,data){ }//行右边工具栏
+				tab.ontoolbar=function(event){}   //上工具栏事件
+				tab.onload=function(data){}   //网络完成事件
+			（3）正式实施
+				tab.init();
+		3.使用
+			事件按钮标识  lay-event="del"
+			tab.ontool=function(event,data)  data是点击的当前行数据
+			tab.fresh(obj);   obj是查询条件对象  {name:"sss"}
+15.特殊列
+	1.可选列  pass
+	2.状态列   power   固定项选择  
+	3.外键列  department_id  可变项选择
+	4.默认处理列   createdate
+	5.统计辅助列  studentcount 将统计过程放在日常添加
+
+16.    table显示 状态列信息
+	 1.{field: 'powername', title: '权限', width:180}
+	2.	public static String[] powers= {"操作员","管理员"};
+		public String getPowername() {
+			return powers[power];
+		} 
+         table显示 外键列信息
+	1. {field: 'department_name', title: '部门', width:180}.
+	2.private String department_name;
+	public String getDepartment_name() {
+		return department_name;
+	}
+	public void setDepartment_name(String department_name) {
+		this.department_name = department_name;
+	}
+	3.@Select("select user.*,d.name department_name"
+			+ " from user inner join department d on user.department_id=d.id "
+			+ " ${where}")
+	  public List<User> select(@Param("where")String where);
+17.登陆
+	1.账户验证
+	2.会话管理
+		服务器变量域      page  reqeust  session  application
+	3.拦截器
+	
+18.分析
+	3学生  client
+		name，sex(男，女)，tel，addr
+	--医生 user
+		name，pass，department_id科室，power,createdate
+	4药物   medicines
+		  name  amount  medicines_type_id 
+	1药物类型  medicines_type 
+		name		
+	2科室  department  
+		    name，allcount
+
+  	挂号记录表 register_record
+		date   client_id人员   department_id科室  index ，srctype（本地，网络） ，amount，
+		status(未支付，已支付，未到，已到，就诊中，就诊完成，取消)，user_id医生
+	治疗记录cure_record
+		date，register_id挂号id，user_id医生，info处方，status开药状态（无，有）
+	开药记录medicines_main
+		总表    date，client_id人员，user_id医生，cure_id治疗id，exec_id经手人，amount，status（未支付，已支付，已领药）
+		medicines_details		
+		明细表   main_id	medicines_id 药物id，count，price，amount
+		
+		
